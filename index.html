@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LITALK Education - Student Portal</title>
+    <meta name="description" content="LITALK Education Student Portal - ตรวจสอบข้อมูลการเรียนและการชำระเงิน">
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --black: #0a0a0a;
+            --black-light: #1a1a1a;
+            --black-mid: #2a2a2a;
+            --gray-dark: #3a3a3a;
+            --gray: #6b6b6b;
+            --gray-light: #9a9a9a;
+            --gray-border: #2e2e2e;
+            --white: #ffffff;
+            --white-off: #f0f0f0;
+            --white-dim: #c8c8c8;
+            --accent: #ffffff;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --shadow: 0 8px 32px rgba(0,0,0,0.4);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Sarabun', 'Inter', sans-serif;
+            background-color: var(--black);
+            color: var(--white-off);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle grid background */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Ambient glow */
+        body::after {
+            content: '';
+            position: fixed;
+            top: -30%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            background: linear-gradient(145deg, rgba(26,26,26,0.95), rgba(18,18,18,0.98));
+            border: 1px solid var(--gray-border);
+            padding: 40px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            max-width: 750px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(20px);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        .header .logo-icon {
+            font-size: 28px;
+            color: var(--white);
+            margin-bottom: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--black-mid);
+            border: 1px solid var(--gray-dark);
+        }
+
+        .header h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.5px;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: var(--gray-light);
+            font-weight: 400;
+        }
+
+        /* Section titles */
+        .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--white-dim);
+            margin-top: 28px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .section-title i {
+            font-size: 14px;
+            color: var(--gray-light);
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--black-mid);
+            border-radius: 8px;
+            border: 1px solid var(--gray-border);
+        }
+
+        /* Buttons */
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--white);
+            color: var(--black);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Sarabun', sans-serif;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--white-dim);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,255,255,0.1);
+        }
+
+        .btn:active { transform: translateY(0); }
+
+        .btn-danger {
+            background: transparent;
+            color: var(--gray-light);
+            border: 1px solid var(--gray-border);
+            font-weight: 500;
+        }
+
+        .btn-danger:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--white);
+            border-color: var(--gray);
+            box-shadow: none;
+        }
+
+        /* Sections visibility */
+        #student-dashboard, #login-section { display: none; }
+
+        /* Login section */
+        #login-section {
+            text-align: center;
+            padding: 30px 0;
+            animation: fadeIn 0.4s ease;
+        }
+
+        #login-section .login-desc {
+            color: var(--gray-light);
+            font-size: 15px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        #login-section .login-desc i {
+            margin-right: 6px;
+            font-size: 14px;
+        }
+
+        /* Info grid */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 8px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .info-box {
+            background: var(--black-mid);
+            padding: 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--gray-border);
+            transition: var(--transition);
+        }
+
+        .info-box:hover {
+            border-color: var(--gray);
+            background: var(--gray-dark);
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--gray-light);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .info-label i { font-size: 11px; }
+
+        .info-value {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--gray-border);
+            animation: fadeIn 0.5s ease;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 13px;
+            border-bottom: 1px solid var(--gray-border);
+        }
+
+        th {
+            background: var(--black-mid);
+            color: var(--gray-light);
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        td { color: var(--white-dim); }
+
+        tr:last-child td { border-bottom: none; }
+
+        tr:hover td {
+            background: rgba(255,255,255,0.03);
+        }
+
+        a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+            border-bottom: 1px solid var(--gray);
+            padding-bottom: 1px;
+        }
+
+        a:hover {
+            color: var(--white);
+            border-bottom-color: var(--white);
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center;
+            color: var(--gray);
+            padding: 28px;
+            border: 1px dashed var(--gray-border);
+            border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.01);
+            font-size: 14px;
+        }
+
+        .empty-state i {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--gray-dark);
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            color: var(--gray-light);
+            font-size: 14px;
+        }
+
+        .loading i { animation: spin 1s linear infinite; }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gray-border);
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .footer i { margin: 0 2px; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container { padding: 24px 18px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 20px; }
+            th, td { padding: 10px 12px; font-size: 12px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+            <h1>LITALK Education</h1>
+            <p><i class="fas fa-user-circle"></i> Student Portal</p>
+        </div>
+
+        <div id="login-section">
+            <p class="login-desc">
+                <i class="fas fa-shield-halved"></i>
+                กรุณาเข้าสู่ระบบเพื่อตรวจสอบข้อมูลการเรียนและการชำระเงินของคุณ
+            </p>
+            <button class="btn" id="login-btn" onclick="login()">
+                <i class="fas fa-right-to-bracket"></i>
+                เข้าสู่ระบบ
+            </button>
+        </div>
+
+        <div id="student-dashboard">
+            <div class="info-grid">
+                <div class="info-box">
+                    <span class="info-label"><i class="fas fa-id-badge"></i> รหัสนักเรียน</span>
+                    <span class="info-value" id="display-id">-</span>
+                </div>
+                <div class="info-box">
+                    <span class="info-label"><i class="fas fa-user"></i> ชื่อ-นามสกุล</span>
+                    <span class="info-value" id="display-name">
+                        <span class="loading"><i class="fas fa-circle-notch"></i> กำลังโหลด...</span>
+                    </span>
+                </div>
+                <div class="info-box">
+                    <span class="info-label"><i class="fas fa-book-open"></i> คอร์สเรียน</span>
+                    <span class="info-value" id="display-course">-</span>
+                </div>
+                <div class="info-box">
+                    <span class="info-label"><i class="fas fa-calendar-check"></i> ชำระเงินล่าสุด</span>
+                    <span class="info-value" id="display-lastpaid">-</span>
+                </div>
+            </div>
+
+            <h3 class="section-title"><i class="fas fa-clipboard-list"></i> บันทึกการเรียน</h3>
+            <div id="study-log-container"></div>
+
+            <h3 class="section-title"><i class="fas fa-receipt"></i> ประวัติการชำระเงิน</h3>
+            <div id="payment-info-container"></div>
+
+            <button class="btn btn-danger" onclick="logout()" style="margin-top: 28px;" id="logout-btn">
+                <i class="fas fa-arrow-right-from-bracket"></i>
+                ออกจากระบบ
+            </button>
+        </div>
+
+        <div class="footer">
+            <i class="far fa-copyright"></i> 2026 LITALK Education <i class="fas fa-circle" style="font-size:4px;vertical-align:middle;margin:0 6px;"></i> All rights reserved
+        </div>
+    </div>
+
+    <script>
+        const auth0Client = new auth0.Auth0Client({
+            domain: 'litalkeducation.us.auth0.com',
+            clientId: 'NmKUxriv62IDG9yQQ3CZqkVp2ujkjdbp',
+            authorizationParams: { redirect_uri: window.location.origin } // สำหรับหน้า index
+        });
+
+        const gasAppUrl = 'https://script.google.com/macros/s/AKfycbyyiEM4NUx-leLse4535upWTtf6q68o4dTFIkO2FS0mml3J3kkIhM7WO27BoAP4aJ-BMg/exec';
+
+        window.onload = async () => {
+            if (location.search.includes("state=") && (location.search.includes("code=") || location.search.includes("error="))) {
+                await auth0Client.handleRedirectCallback();
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            const isAuthenticated = await auth0Client.isAuthenticated();
+            if (isAuthenticated) {
+                const user = await auth0Client.getUser();
+                document.getElementById('student-dashboard').style.display = 'block';
+                const studentId = user.email ? user.email.split('@')[0] : (user.nickname || user.name);
+                fetchStudentData(studentId);
+            } else {
+                document.getElementById('login-section').style.display = 'block';
+            }
+        };
+
+        const login = async () => { await auth0Client.loginWithRedirect(); };
+        const logout = () => { auth0Client.logout({ logoutParams: { returnTo: window.location.origin } }); };
+
+        async function fetchStudentData(studentId) {
+            document.getElementById('display-id').innerText = studentId;
+            try {
+                const response = await fetch(`${gasAppUrl}?studentId=${studentId}`, { method: 'GET', redirect: 'follow' });
+                const result = await response.json();
+                if (result.status === 'success') {
+                    const data = result.data;
+                    document.getElementById('display-name').innerText = data.info.name || '-';
+                    document.getElementById('display-course').innerText = data.info.course || '-';
+                    document.getElementById('display-lastpaid').innerText = data.info.lastPaid || '-';
+
+                    const studyContainer = document.getElementById('study-log-container');
+                    if (data.studyLogs && data.studyLogs.length > 0) {
+                        let studyHtml = `<div class="table-wrapper"><table><tr><th><i class="far fa-clock"></i> วันที่/เวลา</th><th><i class="far fa-comment-dots"></i> Feedback</th><th><i class="fas fa-video"></i> Video</th></tr>`;
+                        data.studyLogs.forEach(log => {
+                            let videoContent = (log.video && log.video.startsWith('http')) ? `<a href="${log.video}" target="_blank"><i class="fas fa-play-circle"></i> ดูวิดีโอ</a>` : (log.video || '-');
+                            studyHtml += `<tr><td>${log.timestamp || '-'}</td><td>${log.feedback || '-'}</td><td>${videoContent}</td></tr>`;
+                        });
+                        studyContainer.innerHTML = studyHtml + `</table></div>`;
+                    } else { studyContainer.innerHTML = '<div class="empty-state"><i class="far fa-folder-open"></i>ยังไม่มีบันทึกประวัติการเรียน</div>'; }
+
+                    const paymentContainer = document.getElementById('payment-info-container');
+                    if (data.payments && data.payments.length > 0) {
+                        let paymentHtml = `<div class="table-wrapper"><table><tr><th><i class="far fa-clock"></i> วันที่/เวลา</th><th><i class="fas fa-wallet"></i> ช่องทาง</th><th><i class="fas fa-coins"></i> ยอดรวม</th><th><i class="fas fa-file-invoice"></i> หลักฐาน</th></tr>`;
+                        data.payments.forEach(pay => {
+                            let proofContent = (pay.proof && pay.proof.startsWith('http')) ? `<a href="${pay.proof}" target="_blank"><i class="fas fa-magnifying-glass"></i> ดูหลักฐาน</a>` : (pay.proof || '-');
+                            paymentHtml += `<tr><td>${pay.timestamp || '-'}</td><td>${pay.method || '-'}</td><td>${pay.total || '-'}</td><td>${proofContent}</td></tr>`;
+                        });
+                        paymentContainer.innerHTML = paymentHtml + `</table></div>`;
+                    } else { paymentContainer.innerHTML = '<div class="empty-state"><i class="far fa-folder-open"></i>ยังไม่มีประวัติการชำระเงิน</div>'; }
+                } else { document.getElementById('display-name').innerText = result.message; }
+            } catch (error) { document.getElementById('display-name').innerText = "เกิดข้อผิดพลาดในการเชื่อมต่อข้อมูล"; }
+        }
+    </script>
+</body>
+
+</html>
