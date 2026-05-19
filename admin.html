@@ -10,476 +10,155 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --black: #0a0a0a;
-            --black-light: #1a1a1a;
-            --black-mid: #2a2a2a;
-            --gray-dark: #3a3a3a;
-            --gray: #6b6b6b;
-            --gray-light: #9a9a9a;
-            --gray-border: #2e2e2e;
-            --white: #ffffff;
-            --white-off: #f0f0f0;
-            --white-dim: #c8c8c8;
-            --radius: 16px;
-            --radius-sm: 10px;
+            --black: #0a0a0a; --black-light: #1a1a1a; --black-mid: #2a2a2a;
+            --gray-dark: #3a3a3a; --gray: #6b6b6b; --gray-light: #9a9a9a; --gray-border: #2e2e2e;
+            --white: #ffffff; --white-off: #f0f0f0; --white-dim: #c8c8c8;
+            --radius: 16px; --radius-sm: 10px;
             --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: 'Kanit', sans-serif;
-            background-color: var(--black);
-            color: var(--white-off);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
+            font-family: 'Kanit', sans-serif; background-color: var(--black); color: var(--white-off);
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; margin: 0; padding: 20px; position: relative; overflow-x: hidden;
         }
 
         body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
-            z-index: 0;
+            content: ''; position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px; pointer-events: none; z-index: 0;
         }
 
         body::after {
-            content: '';
-            position: fixed;
-            top: -30%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 0;
+            content: ''; position: fixed; top: -30%; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 600px; background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+            pointer-events: none; z-index: 0;
         }
 
         .container {
             background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(18, 18, 18, 0.98));
-            border: 1px solid var(--gray-border);
-            padding: 40px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            max-width: 780px;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-            backdrop-filter: blur(20px);
-            animation: fadeInUp 0.6s ease-out;
+            border: 1px solid var(--gray-border); padding: 40px; border-radius: var(--radius);
+            box-shadow: var(--shadow); max-width: 780px; width: 100%; position: relative;
+            z-index: 1; backdrop-filter: blur(20px); animation: fadeInUp 0.6s ease-out;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(24px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 32px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--gray-border);
-        }
-
-        .header .logo-icon {
-            font-size: 28px;
-            color: var(--white);
-            margin-bottom: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
-            background: var(--black-mid);
-            border: 1px solid var(--gray-dark);
-        }
-
-        .header h1 {
-            font-family: 'Kanit', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--white);
-            letter-spacing: -0.5px;
-            margin-bottom: 4px;
-        }
-
-        .header p {
-            font-size: 14px;
-            color: var(--gray-light);
-            font-weight: 400;
-        }
+        .header { text-align: center; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--gray-border); }
+        .header .logo-icon { font-size: 28px; color: var(--white); margin-bottom: 12px; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 14px; background: var(--black-mid); border: 1px solid var(--gray-dark); }
+        .header h1 { font-family: 'Kanit', sans-serif; font-size: 24px; font-weight: 700; color: var(--white); letter-spacing: -0.5px; margin-bottom: 4px; }
+        .header p { font-size: 14px; color: var(--gray-light); font-weight: 400; }
 
         /* Section titles */
-        .section-title {
-            font-family: 'Kanit', sans-serif;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--white-dim);
-            margin-top: 24px;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-        }
-
-        .section-title i {
-            font-size: 13px;
-            color: var(--gray-light);
-            width: 28px;
-            height: 28px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--black-mid);
-            border-radius: 8px;
-            border: 1px solid var(--gray-border);
-        }
+        .section-title { font-family: 'Kanit', sans-serif; font-size: 14px; font-weight: 600; color: var(--white-dim); margin-top: 24px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+        .section-title i { font-size: 13px; color: var(--gray-light); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; background: var(--black-mid); border-radius: 8px; border: 1px solid var(--gray-border); }
 
         /* Buttons */
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 13px 24px;
-            background: var(--white);
-            color: var(--black);
-            border: none;
-            border-radius: var(--radius-sm);
-            font-size: 15px;
-            font-weight: 600;
-            font-family: 'Kanit', sans-serif;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background: var(--white-dim);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-admin {
-            background: var(--white);
-            color: var(--black);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--gray-light);
-            border: 1px solid var(--gray-border);
-            font-weight: 500;
-            margin-top: 10px;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--white);
-            border-color: var(--gray);
-            box-shadow: none;
-        }
-
-        .btn-danger {
-            background: transparent;
-            color: var(--gray-light);
-            border: 1px solid var(--gray-border);
-            font-weight: 500;
-            margin-top: 20px;
-        }
-
-        .btn-danger:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--white);
-            border-color: var(--gray);
-            box-shadow: none;
-        }
-
-        .btn-create {
-            background: var(--white);
-            color: var(--black);
-        }
+        .btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 13px 24px; background: var(--white); color: var(--black); border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; font-family: 'Kanit', sans-serif; cursor: pointer; transition: var(--transition); text-decoration: none; }
+        .btn:hover { background: var(--white-dim); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1); }
+        .btn:active { transform: translateY(0); }
+        .btn-admin { background: var(--white); color: var(--black); }
+        .btn-secondary { background: transparent; color: var(--gray-light); border: 1px solid var(--gray-border); font-weight: 500; margin-top: 10px; }
+        .btn-secondary:hover { background: rgba(255, 255, 255, 0.05); color: var(--white); border-color: var(--gray); box-shadow: none; }
+        .btn-danger { background: transparent; color: var(--gray-light); border: 1px solid var(--gray-border); font-weight: 500; margin-top: 20px; }
+        .btn-danger:hover { background: rgba(255, 255, 255, 0.05); color: var(--white); border-color: var(--gray); box-shadow: none; }
+        .btn-create { background: var(--white); color: var(--black); }
 
         /* Sections visibility */
-        #admin-panel,
-        #login-section,
-        #unauthorized-section {
-            display: none;
-        }
+        #admin-panel, #login-section, #unauthorized-section { display: none; }
 
         /* Login section */
-        #login-section {
-            text-align: center;
-            padding: 30px 0;
-            animation: fadeIn 0.4s ease;
-        }
-
-        #login-section .login-desc {
-            color: var(--gray-light);
-            font-size: 15px;
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
+        #login-section { text-align: center; padding: 30px 0; animation: fadeIn 0.4s ease; }
+        #login-section .login-desc { color: var(--gray-light); font-size: 15px; margin-bottom: 24px; line-height: 1.6; }
 
         /* Unauthorized */
-        #unauthorized-section {
-            text-align: center;
-            padding: 30px 0;
-            animation: fadeIn 0.4s ease;
-        }
-
-        .unauthorized-msg {
-            color: var(--gray-light);
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .unauthorized-msg i {
-            font-size: 20px;
-        }
+        #unauthorized-section { text-align: center; padding: 30px 0; animation: fadeIn 0.4s ease; }
+        .unauthorized-msg { color: var(--gray-light); font-size: 16px; font-weight: 600; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .unauthorized-msg i { font-size: 20px; }
 
         /* Admin badge */
-        .admin-badge {
-            background: var(--black-mid);
-            border: 1px solid var(--gray-border);
-            padding: 14px 20px;
-            border-radius: var(--radius-sm);
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-size: 14px;
-            color: var(--gray-light);
-        }
-
-        .admin-badge i {
-            color: var(--white);
-        }
-
-        .admin-badge span {
-            color: var(--white);
-            font-weight: 600;
-        }
+        .admin-badge { background: var(--black-mid); border: 1px solid var(--gray-border); padding: 14px 20px; border-radius: var(--radius-sm); margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; color: var(--gray-light); }
+        .admin-badge i { color: var(--white); }
+        .admin-badge span { color: var(--white); font-weight: 600; }
 
         /* Tabs */
-        .tab-menu {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 13px 16px;
-            border: 1px solid var(--gray-border);
-            background: transparent;
-            color: var(--gray-light);
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            font-weight: 600;
-            font-family: 'Kanit', sans-serif;
-            font-size: 14px;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .tab-btn:hover {
-            border-color: var(--gray);
-            color: var(--white);
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .tab-btn.active {
-            background: var(--white);
-            color: var(--black);
-            border-color: var(--white);
-        }
-
-        .tab-btn i {
-            font-size: 13px;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
+        .tab-menu { display: flex; gap: 8px; margin-bottom: 24px; }
+        .tab-btn { flex: 1; padding: 13px 16px; border: 1px solid var(--gray-border); background: transparent; color: var(--gray-light); border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-family: 'Kanit', sans-serif; font-size: 14px; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .tab-btn:hover { border-color: var(--gray); color: var(--white); background: rgba(255, 255, 255, 0.03); }
+        .tab-btn.active { background: var(--white); color: var(--black); border-color: var(--white); }
+        .tab-content { display: none; animation: fadeIn 0.3s ease; }
+        .tab-content.active { display: block; }
 
         /* Forms */
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: var(--gray-light);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid var(--gray-border);
-            border-radius: var(--radius-sm);
-            font-family: inherit;
-            font-size: 14px;
-            background: var(--black-light);
-            color: var(--white);
-            transition: var(--transition);
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--gray);
-            background: var(--black-mid);
-        }
-
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            color: var(--gray);
-        }
-
-        .form-group input[readonly] {
-            background: var(--black) !important;
-            color: var(--gray-light);
-            cursor: not-allowed;
-        }
-
-        .form-group select option {
-            background: var(--black-light);
-            color: var(--white);
-        }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid var(--gray-border); border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; background: var(--black-light); color: var(--white); transition: var(--transition); }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--gray); background: var(--black-mid); }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: var(--gray); }
+        .form-group input[readonly] { background: var(--black) !important; color: var(--gray-light); cursor: not-allowed; }
+        .form-group select option { background: var(--black-light); color: var(--white); }
 
         /* Admin card */
-        .admin-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--gray-border);
-            padding: 24px;
-            border-radius: var(--radius-sm);
-            margin-bottom: 20px;
-        }
+        .admin-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--gray-border); padding: 24px; border-radius: var(--radius-sm); margin-bottom: 20px; }
 
         /* Info notice */
-        .info-notice {
-            background: var(--black-mid);
-            border: 1px solid var(--gray-border);
-            padding: 14px 18px;
-            margin-bottom: 20px;
-            border-radius: var(--radius-sm);
-            font-size: 13px;
-            color: var(--gray-light);
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            line-height: 1.6;
-        }
-
-        .info-notice i {
-            color: var(--white-dim);
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
+        .info-notice { background: var(--black-mid); border: 1px solid var(--gray-border); padding: 14px 18px; margin-bottom: 20px; border-radius: var(--radius-sm); font-size: 13px; color: var(--gray-light); display: flex; align-items: flex-start; gap: 10px; line-height: 1.6; }
+        .info-notice i { color: var(--white-dim); margin-top: 2px; flex-shrink: 0; }
 
         /* Footer */
-        .footer {
-            margin-top: 28px;
-            padding-top: 20px;
-            border-top: 1px solid var(--gray-border);
-            text-align: center;
-            font-size: 12px;
-            color: var(--gray);
+        .footer { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--gray-border); text-align: center; font-size: 12px; color: var(--gray); }
+
+        /* Custom Modals (Popup & Loading) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999; opacity: 0; visibility: hidden; transition: 0.3s ease;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        
+        .modal-box {
+            background: var(--black-light); border: 1px solid var(--gray-border);
+            padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow);
+            max-width: 450px; width: 90%; text-align: center; transform: translateY(20px); transition: 0.3s ease;
+        }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        
+        .modal-icon { font-size: 40px; margin-bottom: 15px; }
+        .modal-icon.success { color: #2ecc71; }
+        .modal-icon.error { color: #e74c3c; }
+        .modal-icon.info { color: #3498db; }
+        
+        .modal-title { font-size: 20px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
+        .modal-message { 
+            font-size: 15px; color: var(--gray-light); margin-bottom: 25px; line-height: 1.6; 
+            white-space: pre-wrap; /* เพื่อให้ขึ้นบรรทัดใหม่ตาม \n ของระบบ */
+            user-select: text; /* ทำให้คลุมดำข้อความและก๊อปปี้ได้ */
+            background: var(--black); padding: 15px; border-radius: var(--radius-sm); border: 1px solid var(--gray-border);
+            text-align: left; word-break: break-word;
         }
 
-        .footer i {
-            margin: 0 2px;
+        /* Loader */
+        .loader {
+            border: 4px solid var(--gray-dark); border-top: 4px solid var(--white);
+            border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 15px;
         }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* Responsive */
         @media (max-width: 600px) {
-            .container {
-                padding: 24px 18px;
-            }
-
-            .tab-menu {
-                flex-direction: column;
-            }
-
-            .header h1 {
-                font-size: 20px;
-            }
-
-            .admin-card {
-                padding: 18px;
-            }
+            .container { padding: 24px 18px; }
+            .tab-menu { flex-direction: column; }
+            .header h1 { font-size: 20px; }
+            .admin-card { padding: 18px; }
         }
     </style>
 </head>
@@ -511,7 +190,7 @@
         <div id="unauthorized-section">
             <div class="unauthorized-msg">
                 <i class="fas fa-ban"></i>
-                คุณไม่มีสิทธิ์เข้าถึงหน้านี้
+                เกิดข้อผิดพลาดในการตรวจสอบสิทธิ์
             </div>
             <button class="btn btn-danger" onclick="logout()" id="unauth-logout-btn">
                 <i class="fas fa-arrow-right-from-bracket"></i>
@@ -544,13 +223,11 @@
 
                 <h3 class="section-title"><i class="fas fa-clipboard-list"></i> บันทึกประวัติการเรียน</h3>
                 <div class="admin-card">
-                    <div class="form-group"><label><i class="fas fa-id-badge"></i> รหัสนักเรียน</label><input
-                            type="text" id="log-id" readonly></div>
+                    <div class="form-group"><label><i class="fas fa-id-badge"></i> รหัสนักเรียน</label><input type="text" id="log-id" readonly></div>
                     <div class="form-group"><label><i class="far fa-comment-dots"></i> Feedback การเรียน</label>
                         <textarea id="log-feedback" rows="3" placeholder="กรอกความคิดเห็น..."></textarea>
                     </div>
-                    <div class="form-group"><label><i class="fas fa-video"></i> ลิงก์วิดีโอ (ถ้ามี)</label><input
-                            type="url" id="log-video" placeholder="https://..."></div>
+                    <div class="form-group"><label><i class="fas fa-video"></i> ลิงก์วิดีโอ (ถ้ามี)</label><input type="url" id="log-video" placeholder="https://..."></div>
                     <button class="btn btn-admin" onclick="submitAdminAction('addStudyLog')" id="submit-study-log-btn">
                         <i class="fas fa-floppy-disk"></i> บันทึกประวัติการเรียน
                     </button>
@@ -558,8 +235,7 @@
 
                 <h3 class="section-title"><i class="fas fa-receipt"></i> บันทึกการชำระเงิน</h3>
                 <div class="admin-card">
-                    <div class="form-group"><label><i class="fas fa-id-badge"></i> รหัสนักเรียน</label><input
-                            type="text" id="pay-id" readonly></div>
+                    <div class="form-group"><label><i class="fas fa-id-badge"></i> รหัสนักเรียน</label><input type="text" id="pay-id" readonly></div>
                     <div class="form-group"><label><i class="fas fa-wallet"></i> ช่องทางการชำระเงิน</label>
                         <select id="pay-method">
                             <option value="โอนผ่านบัญชีธนาคาร">โอนผ่านบัญชีธนาคาร</option>
@@ -567,11 +243,8 @@
                             <option value="เงินสด">เงินสด</option>
                         </select>
                     </div>
-                    <div class="form-group"><label><i class="fas fa-coins"></i> ยอดเงินรวม (บาท)</label><input
-                            type="text" id="pay-total" placeholder="0.00"></div>
-                    <div class="form-group"><label><i class="fas fa-file-invoice"></i> ลิงก์หลักฐานชำระเงิน
-                            (URL)</label><input type="url" id="pay-proof" placeholder="https://drive.google.com/...">
-                    </div>
+                    <div class="form-group"><label><i class="fas fa-coins"></i> ยอดเงินรวม (บาท)</label><input type="text" id="pay-total" placeholder="0.00"></div>
+                    <div class="form-group"><label><i class="fas fa-file-invoice"></i> ลิงก์หลักฐานชำระเงิน (URL)</label><input type="url" id="pay-proof" placeholder="https://drive.google.com/..."></div>
                     <button class="btn btn-admin" onclick="submitAdminAction('addPayment')" id="submit-payment-btn">
                         <i class="fas fa-floppy-disk"></i> บันทึกการชำระเงิน
                     </button>
@@ -582,15 +255,11 @@
                 <div class="admin-card">
                     <div class="info-notice">
                         <i class="fas fa-circle-info"></i>
-                        <div><strong>ระบบอัตโนมัติ:</strong> กรอกเฉพาะชื่อและคอร์สเรียน ระบบจะสร้างบัญชี Auth0
-                            สุ่มรหัสให้ และเพิ่มลงชีททันที</div>
+                        <div><strong>ระบบอัตโนมัติ:</strong> กรอกเฉพาะชื่อและคอร์สเรียน ระบบจะสร้างบัญชี Auth0 สุ่มรหัสให้ และเพิ่มลงชีททันที</div>
                     </div>
-                    <div class="form-group"><label><i class="fas fa-user"></i> ชื่อ-นามสกุลนักเรียน</label><input
-                            type="text" id="new-name" placeholder="เช่น สมชาย ดีเด่น"></div>
-                    <div class="form-group"><label><i class="fas fa-book-open"></i> คอร์สเรียน</label><input type="text"
-                            id="new-course" placeholder="เช่น English Business Vol.1"></div>
-                    <button class="btn btn-create" onclick="submitAdminAction('createStudent')"
-                        id="submit-create-student-btn">
+                    <div class="form-group"><label><i class="fas fa-user"></i> ชื่อ-นามสกุลนักเรียน</label><input type="text" id="new-name" placeholder="เช่น สมชาย ดีเด่น"></div>
+                    <div class="form-group"><label><i class="fas fa-book-open"></i> คอร์สเรียน</label><input type="text" id="new-course" placeholder="เช่น English Business Vol.1"></div>
+                    <button class="btn btn-create" onclick="submitAdminAction('createStudent')" id="submit-create-student-btn">
                         <i class="fas fa-user-plus"></i> สร้างบัญชีนักเรียน
                     </button>
                 </div>
@@ -603,8 +272,23 @@
         </div>
 
         <div class="footer">
-            <i class="far fa-copyright"></i> 2026 LITALK Education <i class="fas fa-circle"
-                style="font-size:4px;vertical-align:middle;margin:0 6px;"></i> All rights reserved
+            <i class="far fa-copyright"></i> 2026 LITALK Education <i class="fas fa-circle" style="font-size:4px;vertical-align:middle;margin:0 6px;"></i> All rights reserved
+        </div>
+    </div>
+
+    <div id="loading-overlay" class="modal-overlay">
+        <div class="modal-box" style="background: transparent; border: none; box-shadow: none;">
+            <div class="loader"></div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--white); text-shadow: 0 2px 4px rgba(0,0,0,0.5);">กำลังดำเนินการ กรุณารอสักครู่...</div>
+        </div>
+    </div>
+
+    <div id="custom-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div id="modal-icon-container" class="modal-icon success"><i class="fas fa-check-circle"></i></div>
+            <h3 id="modal-title" class="modal-title">หัวข้อ</h3>
+            <div id="modal-message" class="modal-message">ข้อความรายละเอียด</div>
+            <button class="btn btn-admin" onclick="closeModal()">ตกลง</button>
         </div>
     </div>
 
@@ -629,17 +313,14 @@
             const isAuthenticated = await auth0Client.isAuthenticated();
             if (isAuthenticated) {
                 const user = await auth0Client.getUser();
-                const userEmail = user.email || "";
-                const username = userEmail ? userEmail.split('@')[0] : (user.nickname || user.name || "");
-
-                if (userEmail === 'admin@litalkeducation.com' || userEmail === 'sorasukt@stnetradio.com' || username.toLowerCase() === 'admin' || username.toLowerCase() === 'sorasukt') {
-                    currentAdminEmail = userEmail || username;
-                    document.getElementById('admin-display-email').innerText = currentAdminEmail;
-                    document.getElementById('admin-panel').style.display = 'block';
-                    loadStudentList();
-                } else {
-                    document.getElementById('unauthorized-section').style.display = 'block';
-                }
+                
+                // ปลดล็อก: อนุญาตทุกคนที่เข้าสู่ระบบผ่านแอป Admin ใน Auth0 ได้ ถือเป็น Admin ทันที
+                currentAdminEmail = user.email || user.nickname || user.name || "Admin";
+                
+                document.getElementById('admin-display-email').innerText = currentAdminEmail;
+                document.getElementById('admin-panel').style.display = 'block';
+                loadStudentList();
+                
             } else {
                 document.getElementById('login-section').style.display = 'block';
             }
@@ -648,6 +329,34 @@
         const login = async () => { await auth0Client.loginWithRedirect(); };
         const logout = () => { auth0Client.logout({ logoutParams: { returnTo: window.location.href.split('?')[0] } }); };
 
+        // Functions for Modals
+        function showLoading() { document.getElementById('loading-overlay').classList.add('active'); }
+        function hideLoading() { document.getElementById('loading-overlay').classList.remove('active'); }
+
+        function showModal(title, message, type = 'success') {
+            const modal = document.getElementById('custom-modal');
+            const iconContainer = document.getElementById('modal-icon-container');
+            
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-message').innerText = message;
+            
+            if (type === 'success') {
+                iconContainer.className = 'modal-icon success';
+                iconContainer.innerHTML = '<i class="fas fa-check-circle"></i>';
+            } else if (type === 'error') {
+                iconContainer.className = 'modal-icon error';
+                iconContainer.innerHTML = '<i class="fas fa-circle-xmark"></i>';
+            } else {
+                iconContainer.className = 'modal-icon info';
+                iconContainer.innerHTML = '<i class="fas fa-circle-info"></i>';
+            }
+            
+            modal.classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('custom-modal').classList.remove('active'); }
+
+        // Core Functions
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -686,21 +395,26 @@
 
         async function submitAdminAction(actionType) {
             let payload = {};
+            
+            // Validate Forms
             if (actionType === 'createStudent') {
                 payload = { name: document.getElementById('new-name').value, course: document.getElementById('new-course').value };
-                if (!payload.name || !payload.course) return alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+                if (!payload.name || !payload.course) return showModal('ข้อมูลไม่ครบถ้วน', 'กรุณากรอกชื่อและคอร์สเรียนให้ครบถ้วน', 'error');
             } else if (actionType === 'addStudyLog') {
                 payload = { studentId: document.getElementById('log-id').value, feedback: document.getElementById('log-feedback').value, video: document.getElementById('log-video').value };
-                if (!payload.studentId || !payload.feedback) return alert('กรุณาเลือกนักเรียนและกรอก Feedback');
+                if (!payload.studentId || !payload.feedback) return showModal('ข้อมูลไม่ครบถ้วน', 'กรุณาเลือกนักเรียนและกรอก Feedback', 'error');
             } else if (actionType === 'addPayment') {
                 payload = {
                     studentId: document.getElementById('pay-id').value,
                     method: document.getElementById('pay-method').value,
                     total: document.getElementById('pay-total').value,
-                    proof: document.getElementById('pay-proof').value // ใช้ URL แบบข้อความธรรมดา
+                    proof: document.getElementById('pay-proof').value 
                 };
-                if (!payload.studentId || !payload.total) return alert('กรุณาเลือกนักเรียนและกรอกยอดเงิน');
+                if (!payload.studentId || !payload.total) return showModal('ข้อมูลไม่ครบถ้วน', 'กรุณาเลือกนักเรียนและกรอกยอดเงิน', 'error');
             }
+
+            // แสดง Loading Overlay
+            showLoading();
 
             try {
                 const response = await fetch(gasAppUrl, {
@@ -711,26 +425,32 @@
                 });
 
                 const result = await response.json();
+                
+                // ซ่อน Loading เมื่อประมวลผลเสร็จ
+                hideLoading();
 
                 if (result.status === 'success') {
-                    if (actionType === 'createStudent' && result.message) {
-                        alert(result.message);
+                    // เปิด Web Modal แจ้งเตือนความสำเร็จ (สามารถ Copy ข้อความใน Modal ได้)
+                    if (actionType === 'createStudent') {
+                        showModal('สร้างบัญชีสำเร็จ', result.message, 'success');
+                        document.getElementById('new-name').value = ''; 
+                        document.getElementById('new-course').value = ''; 
+                        loadStudentList(); 
                     } else {
-                        alert('✅ ' + result.message);
+                        showModal('บันทึกสำเร็จ', result.message, 'success');
                     }
 
-                    if (actionType === 'createStudent') { document.getElementById('new-name').value = ''; document.getElementById('new-course').value = ''; loadStudentList(); }
                     if (actionType === 'addStudyLog') { document.getElementById('log-feedback').value = ''; document.getElementById('log-video').value = ''; }
                     if (actionType === 'addPayment') { document.getElementById('pay-total').value = ''; document.getElementById('pay-proof').value = ''; }
                 } else {
-                    alert('❌ เกิดข้อผิดพลาดจากระบบ: ' + result.message);
+                    showModal('เกิดข้อผิดพลาดจากระบบ', result.message, 'error');
                 }
             } catch (error) {
                 console.error(error);
-                alert("เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาตรวจสอบ Console Log");
+                hideLoading();
+                showModal('ข้อผิดพลาดการเชื่อมต่อ', 'เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาตรวจสอบ Console Log', 'error');
             }
         }
     </script>
 </body>
-
 </html>
