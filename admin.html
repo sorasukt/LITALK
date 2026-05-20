@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="th" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -10,276 +10,1207 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root[data-theme="light"] {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #fbfbfd;
+            --border-color: #e2e2e7;
+            --text-primary: #1d1d1f;
+            --text-secondary: #515154;
+            --text-muted: #86868b;
+            --card-shadow: 0 8px 30px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.01);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+
+            --brand-primary: #000000;
+            --brand-secondary: #27272a;
+            --brand-gradient: linear-gradient(135deg, #18181b 0%, #000000 100%);
+            --brand-gradient-hover: linear-gradient(135deg, #3f3f46 0%, #18181b 100%);
+            --brand-btn-text: #ffffff;
+            --brand-btn-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            --brand-btn-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.2);
+
+            --hero-bg: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(239, 68, 68, 0.04) 100%);
+            --action-btn-bg: rgba(0, 0, 0, 0.04);
+            --action-btn-color: #000000;
+            --input-focus-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+        }
+
+        :root[data-theme="dark"] {
+            --bg-primary: #000000;
+            --bg-secondary: #121212;
+            --bg-tertiary: #1c1c1e;
+            --border-color: #2c2c2e;
+            --text-primary: #ffffff;
+            --text-secondary: #d1d1d6;
+            --text-muted: #8e8e93;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.45);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.55);
+
+            --brand-primary: #ffffff;
+            --brand-secondary: #e5e5ea;
+            --brand-gradient: linear-gradient(135deg, #ffffff 0%, #eaeaea 100%);
+            --brand-gradient-hover: linear-gradient(135deg, #f2f2f7 0%, #ffffff 100%);
+            --brand-btn-text: #000000;
+            --brand-btn-shadow: 0 4px 14px rgba(255, 255, 255, 0.08);
+            --brand-btn-shadow-hover: 0 6px 20px rgba(255, 255, 255, 0.15);
+
+            --hero-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(239, 68, 68, 0.06) 100%);
+            --action-btn-bg: rgba(255, 255, 255, 0.08);
+            --action-btn-color: #ffffff;
+            --input-focus-shadow: 0 0 0 3px rgba(255, 255, 255, 0.12);
+        }
 
         :root {
-            --black: #0a0a0a; --black-light: #1a1a1a; --black-mid: #2a2a2a;
-            --gray-dark: #3a3a3a; --gray: #6b6b6b; --gray-light: #9a9a9a; --gray-border: #2e2e2e;
-            --white: #ffffff; --white-off: #f0f0f0; --white-dim: #c8c8c8;
-            --radius: 16px; --radius-sm: 10px;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --accent-danger: #ef4444;
+            --accent-danger-gradient: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            --accent-success: #10b981;
+            --accent-success-bg: rgba(16, 185, 129, 0.1);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            --transition-all: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            font-family: 'Kanit', sans-serif; background-color: var(--black); color: var(--white-off);
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; margin: 0; padding: 20px; position: relative; overflow-x: hidden;
+            font-family: 'Kanit', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+            overflow-x: hidden;
         }
 
+        /* Subtle modern radial gradients */
         body::before {
-            content: ''; position: fixed; inset: 0;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px; pointer-events: none; z-index: 0;
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, rgba(0, 0, 0, 0.015) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
         }
 
-        body::after {
-            content: ''; position: fixed; top: -30%; left: 50%; transform: translateX(-50%);
-            width: 600px; height: 600px; background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
-            pointer-events: none; z-index: 0;
+        :root[data-theme="dark"] body::before {
+            background-image:
+                radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
+                radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
         }
 
-        .container {
-            background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(18, 18, 18, 0.98));
-            border: 1px solid var(--gray-border); padding: 40px; border-radius: var(--radius);
-            box-shadow: var(--shadow); max-width: 780px; width: 100%; position: relative;
-            z-index: 1; backdrop-filter: blur(20px); animation: fadeInUp 0.6s ease-out;
+        /* Visibility of sections */
+        #admin-panel,
+        #login-section,
+        #unauthorized-section {
+            display: none;
         }
-
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Header */
-        .header { text-align: center; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--gray-border); }
-        .header .logo-icon { font-size: 28px; color: var(--white); margin-bottom: 12px; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 14px; background: var(--black-mid); border: 1px solid var(--gray-dark); }
-        .header h1 { font-family: 'Kanit', sans-serif; font-size: 24px; font-weight: 700; color: var(--white); letter-spacing: -0.5px; margin-bottom: 4px; }
-        .header p { font-size: 14px; color: var(--gray-light); font-weight: 400; }
-
-        /* Section titles */
-        .section-title { font-family: 'Kanit', sans-serif; font-size: 14px; font-weight: 600; color: var(--white-dim); margin-top: 24px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
-        .section-title i { font-size: 13px; color: var(--gray-light); width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; background: var(--black-mid); border-radius: 8px; border: 1px solid var(--gray-border); }
 
         /* Buttons */
-        .btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 13px 24px; background: var(--white); color: var(--black); border: none; border-radius: var(--radius-sm); font-size: 15px; font-weight: 600; font-family: 'Kanit', sans-serif; cursor: pointer; transition: var(--transition); text-decoration: none; }
-        .btn:hover { background: var(--white-dim); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1); }
-        .btn:active { transform: translateY(0); }
-        .btn-admin { background: var(--white); color: var(--black); }
-        .btn-secondary { background: transparent; color: var(--gray-light); border: 1px solid var(--gray-border); font-weight: 500; margin-top: 10px; }
-        .btn-secondary:hover { background: rgba(255, 255, 255, 0.05); color: var(--white); border-color: var(--gray); box-shadow: none; }
-        .btn-danger { background: transparent; color: var(--gray-light); border: 1px solid var(--gray-border); font-weight: 500; margin-top: 20px; }
-        .btn-danger:hover { background: rgba(255, 255, 255, 0.05); color: var(--white); border-color: var(--gray); box-shadow: none; }
-        .btn-create { background: var(--white); color: var(--black); }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition-all);
+            border: none;
+            text-decoration: none;
+        }
 
-        /* Sections visibility */
-        #admin-panel, #login-section, #unauthorized-section { display: none; }
+        .btn-primary {
+            background: var(--brand-gradient);
+            color: var(--brand-btn-text);
+            box-shadow: var(--brand-btn-shadow);
+        }
 
-        /* Login section */
-        #login-section { text-align: center; padding: 30px 0; animation: fadeIn 0.4s ease; }
-        #login-section .login-desc { color: var(--gray-light); font-size: 15px; margin-bottom: 24px; line-height: 1.6; }
+        .btn-primary:hover {
+            background: var(--brand-gradient-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--brand-btn-shadow-hover);
+        }
 
-        /* Unauthorized */
-        #unauthorized-section { text-align: center; padding: 30px 0; animation: fadeIn 0.4s ease; }
-        .unauthorized-msg { color: var(--gray-light); font-size: 16px; font-weight: 600; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .unauthorized-msg i { font-size: 20px; }
+        .btn-secondary {
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
 
-        /* Admin badge */
-        .admin-badge { background: var(--black-mid); border: 1px solid var(--gray-border); padding: 14px 20px; border-radius: var(--radius-sm); margin-bottom: 24px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 14px; color: var(--gray-light); }
-        .admin-badge i { color: var(--white); }
-        .admin-badge span { color: var(--white); font-weight: 600; }
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+            color: var(--text-primary);
+        }
 
-        /* Tabs */
-        .tab-menu { display: flex; gap: 8px; margin-bottom: 24px; }
-        .tab-btn { flex: 1; padding: 13px 16px; border: 1px solid var(--gray-border); background: transparent; color: var(--gray-light); border-radius: var(--radius-sm); cursor: pointer; font-weight: 600; font-family: 'Kanit', sans-serif; font-size: 14px; transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .tab-btn:hover { border-color: var(--gray); color: var(--white); background: rgba(255, 255, 255, 0.03); }
-        .tab-btn.active { background: var(--white); color: var(--black); border-color: var(--white); }
-        .tab-content { display: none; animation: fadeIn 0.3s ease; }
-        .tab-content.active { display: block; }
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.2);
+        }
 
-        /* Forms */
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: var(--gray-light); text-transform: uppercase; letter-spacing: 0.5px; }
-        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid var(--gray-border); border-radius: var(--radius-sm); font-family: inherit; font-size: 14px; background: var(--black-light); color: var(--white); transition: var(--transition); }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--gray); background: var(--black-mid); }
-        .form-group input::placeholder, .form-group textarea::placeholder { color: var(--gray); }
-        .form-group input[readonly] { background: var(--black) !important; color: var(--gray-light); cursor: not-allowed; }
-        .form-group select option { background: var(--black-light); color: var(--white); }
+        .btn-success:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        }
 
-        /* Admin card */
-        .admin-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--gray-border); padding: 24px; border-radius: var(--radius-sm); margin-bottom: 20px; }
+        .btn-danger {
+            background: var(--accent-danger-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.2);
+        }
 
-        /* Info notice */
-        .info-notice { background: var(--black-mid); border: 1px solid var(--gray-border); padding: 14px 18px; margin-bottom: 20px; border-radius: var(--radius-sm); font-size: 13px; color: var(--gray-light); display: flex; align-items: flex-start; gap: 10px; line-height: 1.6; }
-        .info-notice i { color: var(--white-dim); margin-top: 2px; flex-shrink: 0; }
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+        }
+
+        /* Top Theme Toggle Switch */
+        .login-theme-toggle {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+        }
+
+        .theme-toggle-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: var(--transition-all);
+        }
+
+        .theme-toggle-btn:hover {
+            background-color: var(--bg-tertiary);
+            transform: scale(1.05);
+        }
+
+        /* Login view */
+        .admin-login-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .login-card-container {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 40px 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            transition: var(--transition-all);
+        }
+
+        .admin-lock-icon {
+            font-size: 36px;
+            color: var(--accent-danger);
+            background-color: rgba(239, 68, 68, 0.1);
+            width: 72px;
+            height: 72px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-bottom: 24px;
+        }
+
+        .login-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .login-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        .login-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .login-warning {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: rgba(245, 158, 11, 0.08);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            color: #d97706;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            line-height: 1.5;
+            text-align: left;
+            margin-bottom: 12px;
+        }
+
+        /* Unauthorized Page */
+        .unauthorized-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .error-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 40px 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .error-icon {
+            font-size: 40px;
+            color: var(--accent-danger);
+            margin-bottom: 20px;
+        }
+
+        .error-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .error-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        /* Admin Dashboard View */
+        .admin-dashboard {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            z-index: 1;
+            position: relative;
+        }
+
+        .navbar {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 16px 24px;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-brand .logo-img {
+            height: 38px;
+            width: auto;
+            transition: filter 0.3s;
+        }
+
+        :root[data-theme="dark"] .logo-img {
+            filter: brightness(0) invert(1);
+        }
+
+        .nav-brand-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            background-color: var(--bg-tertiary);
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .nav-brand-text.admin-badge-text {
+            color: var(--accent-danger);
+            background-color: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.15);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .btn-logout-header {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 9px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            transition: var(--transition-all);
+        }
+
+        .btn-logout-header:hover {
+            background-color: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: var(--accent-danger);
+        }
+
+        .dashboard-content {
+            flex: 1;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 24px;
+            box-sizing: border-box;
+        }
+
+        /* Staff Info Banner */
+        .staff-hero {
+            background: var(--hero-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .staff-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .staff-avatar {
+            width: 52px;
+            height: 52px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--brand-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .staff-info h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .staff-info p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .staff-email {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .staff-badge {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--accent-danger);
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Tabs Menu */
+        .tab-menu {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition-all);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--brand-primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -9px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: var(--brand-primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Two-column layout in Manage Tab */
+        .admin-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .admin-sidebar-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-header h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-header h3 i {
+            color: var(--brand-primary);
+        }
+
+        .card-header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .sidebar-help {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-top: 24px;
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.5;
+            background-color: var(--bg-tertiary);
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar-help i {
+            color: var(--brand-primary);
+            font-size: 14px;
+            margin-top: 1px;
+        }
+
+        .admin-main-forms {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        /* Admin Action Card */
+        .admin-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title-bar {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .card-icon.blue {
+            background-color: var(--action-btn-bg);
+            color: var(--action-btn-color);
+        }
+
+        .card-icon.green {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .card-icon.purple {
+            background-color: var(--action-btn-bg);
+            color: var(--action-btn-color);
+        }
+
+        .card-title-bar h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .card-title-bar p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Forms Layout & Inputs */
+        .form-body {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .form-group label i {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 14px;
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            transition: var(--transition-all);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            background-color: var(--bg-secondary);
+            box-shadow: var(--input-focus-shadow);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group input[readonly] {
+            background-color: var(--bg-primary);
+            color: var(--text-secondary);
+            cursor: not-allowed;
+            border-style: dashed;
+        }
+
+        /* Custom dropdown select design */
+        .select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-wrapper select {
+            appearance: none;
+            -webkit-appearance: none;
+            padding-right: 40px;
+        }
+
+        .select-wrapper::after {
+            content: '\f078';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            font-size: 11px;
+            color: var(--text-secondary);
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
+        .btn-submit {
+            margin-top: 10px;
+        }
+
+        /* Info Notice */
+        .info-notice {
+            background-color: var(--action-btn-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .info-notice i {
+            font-size: 16px;
+            margin-top: 3px;
+            flex-shrink: 0;
+        }
+
+        /* Custom Popups (Alerts & Modals) */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(9, 13, 22, 0.6);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-all);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-box {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 36px 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(20px);
+            transition: var(--transition-all);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            display: inline-flex;
+        }
+
+        .modal-icon.success {
+            color: var(--accent-success);
+        }
+
+        .modal-icon.error {
+            color: var(--accent-danger);
+        }
+
+        .modal-icon.info {
+            color: var(--brand-primary);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+
+        .modal-message {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            background-color: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            text-align: left;
+            word-break: break-word;
+            font-family: inherit;
+        }
+
+        /* Loading spinner */
+        .loader {
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--brand-primary);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader-text {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
 
         /* Footer */
-        .footer { margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--gray-border); text-align: center; font-size: 12px; color: var(--gray); }
-
-        /* Custom Modals (Popup & Loading) */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 9999; opacity: 0; visibility: hidden; transition: 0.3s ease;
-        }
-        .modal-overlay.active { opacity: 1; visibility: visible; }
-        
-        .modal-box {
-            background: var(--black-light); border: 1px solid var(--gray-border);
-            padding: 30px; border-radius: var(--radius); box-shadow: var(--shadow);
-            max-width: 450px; width: 90%; text-align: center; transform: translateY(20px); transition: 0.3s ease;
-        }
-        .modal-overlay.active .modal-box { transform: translateY(0); }
-        
-        .modal-icon { font-size: 40px; margin-bottom: 15px; }
-        .modal-icon.success { color: #2ecc71; }
-        .modal-icon.error { color: #e74c3c; }
-        .modal-icon.info { color: #3498db; }
-        
-        .modal-title { font-size: 20px; font-weight: 600; color: var(--white); margin-bottom: 10px; }
-        .modal-message { 
-            font-size: 15px; color: var(--gray-light); margin-bottom: 25px; line-height: 1.6; 
-            white-space: pre-wrap; /* เพื่อให้ขึ้นบรรทัดใหม่ตาม \n ของระบบ */
-            user-select: text; /* ทำให้คลุมดำข้อความและก๊อปปี้ได้ */
-            background: var(--black); padding: 15px; border-radius: var(--radius-sm); border: 1px solid var(--gray-border);
-            text-align: left; word-break: break-word;
+        .dashboard-footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 24px;
+            text-align: center;
+            margin-top: auto;
+            font-size: 13px;
+            color: var(--text-muted);
+            transition: background-color 0.3s, border-color 0.3s;
         }
 
-        /* Loader */
-        .loader {
-            border: 4px solid var(--gray-dark); border-top: 4px solid var(--white);
-            border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 15px;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Responsive Breakpoints */
+        @media (max-width: 900px) {
+            .admin-grid {
+                grid-template-columns: 1fr;
+                gap: 28px;
+            }
 
-        /* Responsive */
+            .tab-menu {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 0;
+            }
+
+            .tab-btn {
+                padding: 10px 14px;
+                font-size: 14px;
+            }
+
+            .staff-hero {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+                gap: 16px;
+            }
+        }
+
         @media (max-width: 600px) {
-            .container { padding: 24px 18px; }
-            .tab-menu { flex-direction: column; }
-            .header h1 { font-size: 20px; }
-            .admin-card { padding: 18px; }
+            .navbar {
+                padding: 12px 16px;
+            }
+
+            .btn-logout-header span {
+                display: none;
+            }
+
+            .btn-logout-header {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                padding: 0;
+                justify-content: center;
+            }
+
+            .dashboard-content {
+                padding: 24px 16px;
+            }
+
+            .admin-card {
+                padding: 24px 20px;
+            }
+
+            .card-title-bar {
+                gap: 12px;
+            }
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container">
-        <div class="header">
-            <div class="logo-icon"><i class="fas fa-shield-halved"></i></div>
-            <h1>LITALK Education</h1>
-            <p><i class="fas fa-lock"></i> Admin Portal</p>
-        </div>
+    <!-- TOP LEVEL THEME TOGGLE (Login state) -->
+    <div class="login-theme-toggle" id="theme-toggle-container">
+        <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+            <i id="theme-toggle-icon" class="fas fa-moon"></i>
+        </button>
+    </div>
 
-        <div id="login-section">
-            <p class="login-desc">
-                <i class="fas fa-user-shield"></i>
-                กรุณาเข้าสู่ระบบด้วยบัญชีเจ้าหน้าที่
-            </p>
-            <button class="btn btn-admin" id="admin-login-btn" onclick="login()">
-                <i class="fas fa-right-to-bracket"></i>
-                เข้าสู่ระบบเจ้าหน้าที่
-            </button>
-            <a href="index.html" class="btn btn-secondary" id="back-to-student-btn">
-                <i class="fas fa-arrow-left"></i>
-                กลับไปหน้านักเรียน
-            </a>
-        </div>
+    <!-- ADMIN LOGIN -->
+    <div id="login-section" class="admin-login-page">
+        <div class="login-card-container">
+            <div class="admin-lock-icon"><i class="fas fa-user-shield"></i></div>
+            <h1 class="login-title">LITALK Education</h1>
+            <p class="login-subtitle">Admin Portal - ระบบจัดการข้อมูลหลังบ้าน</p>
 
-        <div id="unauthorized-section">
-            <div class="unauthorized-msg">
-                <i class="fas fa-ban"></i>
-                เกิดข้อผิดพลาดในการตรวจสอบสิทธิ์
+            <div class="login-card-body">
+                <p class="login-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    เฉพาะผู้ที่มีบัญชีเจ้าหน้าที่ผู้ดูแลระบบเท่านั้นที่สามารถผ่านขั้นตอนนี้ได้
+                </p>
+
+                <button class="btn btn-primary" id="admin-login-btn" onclick="login()">
+                    <i class="fas fa-right-to-bracket"></i>
+                    เข้าสู่ระบบเจ้าหน้าที่
+                </button>
+
+                <a href="index.html" class="btn btn-secondary" id="back-to-student-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    กลับไปหน้านักเรียน
+                </a>
             </div>
+        </div>
+    </div>
+
+    <!-- UNAUTHORIZED -->
+    <div id="unauthorized-section" class="unauthorized-page">
+        <div class="error-card">
+            <div class="error-icon"><i class="fas fa-ban"></i></div>
+            <h2>เกิดข้อผิดพลาดในการตรวจสอบสิทธิ์</h2>
+            <p>บัญชีของคุณไม่ได้รับสิทธิ์ในการเข้าถึงระบบจัดการ กรุณาแจ้งแอดมินหรือออกจากระบบและใช้บัญชีอื่น</p>
+
             <button class="btn btn-danger" onclick="logout()" id="unauth-logout-btn">
                 <i class="fas fa-arrow-right-from-bracket"></i>
                 ออกจากระบบ
             </button>
         </div>
-
-        <div id="admin-panel">
-            <div class="admin-badge">
-                <i class="fas fa-user-tie"></i>
-                เจ้าหน้าที่: <span id="admin-display-email"></span>
-            </div>
-
-            <div class="tab-menu">
-                <button class="tab-btn active" onclick="switchTab('manage')" id="tab-btn-manage">
-                    <i class="fas fa-pen-to-square"></i> จัดการข้อมูลนักเรียน
-                </button>
-                <button class="tab-btn" onclick="switchTab('create')" id="tab-btn-create">
-                    <i class="fas fa-user-plus"></i> สร้างบัญชีใหม่
-                </button>
-            </div>
-
-            <div id="tab-manage" class="tab-content active">
-                <div class="form-group">
-                    <label><i class="fas fa-magnifying-glass"></i> เลือกรายชื่อนักเรียน</label>
-                    <select id="select-student" onchange="autoFillStudentId()">
-                        <option value="">-- กำลังโหลดรายชื่อนักเรียน... --</option>
-                    </select>
-                </div>
-
-                <h3 class="section-title"><i class="fas fa-clipboard-list"></i> บันทึกประวัติการเรียน</h3>
-                <div class="admin-card">
-                    <div class="form-group"><label><i class="fas fa-id-badge"></i> รหัสนักเรียน</label><input type="text" id="log-id" readonly></div>
-                    <div class="form-group"><label><i class="far fa-comment-dots"></i> Feedback การเรียน</label>
-                        <textarea id="log-feedback" rows="3" placeholder="กรอกความคิดเห็น..."></textarea>
-                    </div>
-                    <div class="form-group"><label><i class="fas fa-video"></i> ลิงก์วิดีโอ (ถ้ามี)</label><input type="url" id="log-video" placeholder="https://..."></div>
-                    <button class="btn btn-admin" onclick="submitAdminAction('addStudyLog')" id="submit-study-log-btn">
-                        <i class="fas fa-floppy-disk"></i> บันทึกประวัติการเรียน
-                    </button>
-                </div>
-
-                <h3 class="section-title"><i class="fas fa-receipt"></i> บันทึกการชำระเงิน</h3>
-                <div class="admin-card">
-                    <div class="form-group"><label><i class="fas fa-id-badge"></i> รหัสนักเรียน</label><input type="text" id="pay-id" readonly></div>
-                    <div class="form-group"><label><i class="fas fa-wallet"></i> ช่องทางการชำระเงิน</label>
-                        <select id="pay-method">
-                            <option value="โอนผ่านบัญชีธนาคาร">โอนผ่านบัญชีธนาคาร</option>
-                            <option value="บัตรเครดิต">บัตรเครดิต</option>
-                            <option value="เงินสด">เงินสด</option>
-                        </select>
-                    </div>
-                    <div class="form-group"><label><i class="fas fa-coins"></i> ยอดเงินรวม (บาท)</label><input type="text" id="pay-total" placeholder="0.00"></div>
-                    <div class="form-group"><label><i class="fas fa-file-invoice"></i> ลิงก์หลักฐานชำระเงิน (URL)</label><input type="url" id="pay-proof" placeholder="https://drive.google.com/..."></div>
-                    <button class="btn btn-admin" onclick="submitAdminAction('addPayment')" id="submit-payment-btn">
-                        <i class="fas fa-floppy-disk"></i> บันทึกการชำระเงิน
-                    </button>
-                </div>
-            </div>
-
-            <div id="tab-create" class="tab-content">
-                <div class="admin-card">
-                    <div class="info-notice">
-                        <i class="fas fa-circle-info"></i>
-                        <div><strong>ระบบอัตโนมัติ:</strong> กรอกเฉพาะชื่อและคอร์สเรียน ระบบจะสร้างบัญชี Auth0 สุ่มรหัสให้ และเพิ่มลงชีททันที</div>
-                    </div>
-                    <div class="form-group"><label><i class="fas fa-user"></i> ชื่อ-นามสกุลนักเรียน</label><input type="text" id="new-name" placeholder="เช่น สมชาย ดีเด่น"></div>
-                    <div class="form-group"><label><i class="fas fa-book-open"></i> คอร์สเรียน</label><input type="text" id="new-course" placeholder="เช่น English Business Vol.1"></div>
-                    <button class="btn btn-create" onclick="submitAdminAction('createStudent')" id="submit-create-student-btn">
-                        <i class="fas fa-user-plus"></i> สร้างบัญชีนักเรียน
-                    </button>
-                </div>
-            </div>
-
-            <button class="btn btn-danger" onclick="logout()" id="admin-logout-btn">
-                <i class="fas fa-arrow-right-from-bracket"></i>
-                ออกจากระบบ
-            </button>
-        </div>
-
-        <div class="footer">
-            <i class="far fa-copyright"></i> 2026 LITALK Education <i class="fas fa-circle" style="font-size:4px;vertical-align:middle;margin:0 6px;"></i> All rights reserved
-        </div>
     </div>
 
+    <!-- ADMIN PANEL -->
+    <div id="admin-panel" class="admin-dashboard">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <img src="img/LITALK-Black.png" alt="LITALK Logo" class="logo-img">
+                    <span class="nav-brand-text admin-badge-text">Admin Portal</span>
+                </div>
+                <div class="nav-actions">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                        <i id="theme-toggle-icon-dash" class="fas fa-moon"></i>
+                    </button>
+                    <button class="btn-logout-header" onclick="logout()" id="admin-logout-btn">
+                        <i class="fas fa-arrow-right-from-bracket"></i>
+                        <span>ออกจากระบบ</span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <main class="dashboard-content">
+            <!-- Staff Info Banner -->
+            <div class="staff-hero">
+                <div class="staff-info">
+                    <div class="staff-avatar"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <h2>ยินดีต้อนรับเจ้าหน้าที่ LITALK</h2>
+                        <p>ลงชื่อเข้าใช้ด้วยบัญชี: <span id="admin-display-email"
+                                class="staff-email">กำลังดึงข้อมูล...</span></p>
+                    </div>
+                </div>
+                <div class="staff-badge"><i class="fas fa-shield-halved"></i> Authorized Staff</div>
+            </div>
+
+            <!-- Tab Menu -->
+            <div class="tab-menu">
+                <button class="tab-btn active" onclick="switchTab('manage')" id="tab-btn-manage">
+                    <i class="fas fa-pen-to-square"></i> จัดการข้อมูลและบันทึกการเรียน
+                </button>
+                <button class="tab-btn" onclick="switchTab('create')" id="tab-btn-create">
+                    <i class="fas fa-user-plus"></i> ลงทะเบียนนักเรียนใหม่
+                </button>
+            </div>
+
+            <!-- TAB 1: MANAGE -->
+            <div id="tab-manage" class="tab-content active">
+                <div class="admin-grid">
+                    <!-- Sidebar: Select Student -->
+                    <div class="admin-sidebar-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-user-check"></i> ขั้นตอนที่ 1: เลือกนักเรียน</h3>
+                            <p>กรุณาเลือกรายชื่อนักเรียนจากระบบเพื่อดำเนินการบันทึกข้อมูล</p>
+                        </div>
+                        <div class="form-group select-group">
+                            <label for="select-student">รายชื่อนักเรียนในชีท</label>
+                            <div class="select-wrapper">
+                                <select id="select-student" onchange="autoFillStudentId()">
+                                    <option value="">-- กำลังโหลดรายชื่อนักเรียน... --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="sidebar-help">
+                            <i class="fas fa-info-circle"></i>
+                            <span>เมื่อเลือกนักเรียนแล้ว รหัสนักเรียนจะถูกกรอกลงในแบบฟอร์มด้านขวาโดยอัตโนมัติ</span>
+                        </div>
+                    </div>
+
+                    <!-- Main Forms column -->
+                    <div class="admin-main-forms">
+                        <!-- Card: Feedback -->
+                        <div class="admin-card">
+                            <div class="card-title-bar">
+                                <span class="card-icon blue"><i class="fas fa-clipboard-list"></i></span>
+                                <div>
+                                    <h3>บันทึกประวัติการเรียน (Study Log)</h3>
+                                    <p>กรอกข้อมูล Feedback และแนบลิงก์วิดีโอหลังจากจบคลาส</p>
+                                </div>
+                            </div>
+
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label><i class="fas fa-id-badge"></i> รหัสนักเรียน</label>
+                                    <input type="text" id="log-id" readonly
+                                        placeholder="จะกรอกให้อัตโนมัติเมื่อเลือกนักเรียนด้านซ้าย">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="far fa-comment-dots"></i> Feedback การเรียนการสอน</label>
+                                    <textarea id="log-feedback" rows="4"
+                                        placeholder="ระบุเนื้อหาหลักที่สอน ผลการพัฒนา และจุดที่ต้องเน้นย้ำ..."></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-video"></i> ลิงก์บันทึกวิดีโอย้อนหลัง (Zoom / Drive /
+                                        Dropbox)</label>
+                                    <input type="url" id="log-video" placeholder="https://drive.google.com/...">
+                                </div>
+
+                                <button class="btn btn-primary btn-submit" onclick="submitAdminAction('addStudyLog')"
+                                    id="submit-study-log-btn">
+                                    <i class="fas fa-floppy-disk"></i> บันทึกข้อมูลประวัติการเรียน
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card: Payment -->
+                        <div class="admin-card">
+                            <div class="card-title-bar">
+                                <span class="card-icon green"><i class="fas fa-receipt"></i></span>
+                                <div>
+                                    <h3>บันทึกข้อมูลการชำระเงิน (Payment)</h3>
+                                    <p>บันทึกประวัติค่าเรียนและแนบหลักฐานเอกสาร/สลิป</p>
+                                </div>
+                            </div>
+
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label><i class="fas fa-id-badge"></i> รหัสนักเรียน</label>
+                                    <input type="text" id="pay-id" readonly
+                                        placeholder="จะกรอกให้อัตโนมัติเมื่อเลือกนักเรียนด้านซ้าย">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-wallet"></i> ช่องทางการชำระเงิน</label>
+                                    <div class="select-wrapper">
+                                        <select id="pay-method">
+                                            <option value="โอนผ่านบัญชีธนาคาร">โอนผ่านบัญชีธนาคาร</option>
+                                            <option value="บัตรเครดิต">บัตรเครดิต</option>
+                                            <option value="เงินสด">เงินสด</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-coins"></i> ยอดชำระเงินรวม (เช่น 5,000 บาท)</label>
+                                    <input type="text" id="pay-total" placeholder="ระบุจำนวนเงินที่ชำระ เช่น 5000">
+                                </div>
+                                <div class="form-group">
+                                    <label><i class="fas fa-file-invoice"></i> ลิงก์หลักฐานชำระเงิน / สลิปโอนเงิน
+                                        (URL)</label>
+                                    <input type="url" id="pay-proof" placeholder="https://drive.google.com/...">
+                                </div>
+
+                                <button class="btn btn-success btn-submit" onclick="submitAdminAction('addPayment')"
+                                    id="submit-payment-btn">
+                                    <i class="fas fa-circle-check"></i> บันทึกข้อมูลการชำระเงิน
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: CREATE -->
+            <div id="tab-create" class="tab-content">
+                <div class="admin-card">
+                    <div class="card-title-bar">
+                        <span class="card-icon purple"><i class="fas fa-user-plus"></i></span>
+                        <div>
+                            <h3>ลงทะเบียนนักเรียนใหม่ (Add Student)</h3>
+                            <p>สร้างบัญชีในระบบและเพิ่มข้อมูลเข้า Google Sheets</p>
+                        </div>
+                    </div>
+
+                    <div class="info-notice">
+                        <i class="fas fa-circle-info"></i>
+                        <div>
+                            <strong>ระบบดำเนินการอัตโนมัติ:</strong>
+                            กรอกชื่อและคอร์สเรียน ระบบจะสร้างบัญชี Auth0 ให้โดยอัตโนมัติ สุ่มรหัสเริ่มต้น และเพิ่มเข้า
+                            Google Sheets พร้อมแจ้งรายละเอียดให้ทราบ
+                        </div>
+                    </div>
+
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> ชื่อ-นามสกุลนักเรียน</label>
+                            <input type="text" id="new-name" placeholder="เช่น สมชาย ดีเด่น">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-book-open"></i> คอร์สเรียน</label>
+                            <input type="text" id="new-course" placeholder="เช่น English Business Vol.1">
+                        </div>
+
+                        <button class="btn btn-primary btn-submit" onclick="submitAdminAction('createStudent')"
+                            id="submit-create-student-btn">
+                            <i class="fas fa-user-plus"></i> สร้างบัญชีนักเรียนใหม่
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <div class="footer-content">
+                <i class="far fa-copyright"></i> 2026 LITALK Education <i class="fas fa-circle"
+                    style="font-size:4px;vertical-align:middle;margin:0 6px;"></i> All rights reserved
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modals -->
     <div id="loading-overlay" class="modal-overlay">
         <div class="modal-box" style="background: transparent; border: none; box-shadow: none;">
             <div class="loader"></div>
-            <div style="font-size: 16px; font-weight: 600; color: var(--white); text-shadow: 0 2px 4px rgba(0,0,0,0.5);">กำลังดำเนินการ กรุณารอสักครู่...</div>
+            <div class="loader-text" style="color: var(--text-primary);">กำลังดำเนินการ กรุณารอสักครู่...</div>
         </div>
     </div>
 
@@ -288,11 +1219,19 @@
             <div id="modal-icon-container" class="modal-icon success"><i class="fas fa-check-circle"></i></div>
             <h3 id="modal-title" class="modal-title">หัวข้อ</h3>
             <div id="modal-message" class="modal-message">ข้อความรายละเอียด</div>
-            <button class="btn btn-admin" onclick="closeModal()">ตกลง</button>
+            <button class="btn btn-primary" onclick="closeModal()">ตกลง</button>
         </div>
     </div>
 
     <script>
+        // Init theme function before page loads to prevent flickering
+        (function () {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+
         let currentAdminEmail = "";
 
         const auth0Client = new auth0.Auth0Client({
@@ -305,6 +1244,10 @@
         const gasAppUrl = 'https://script.google.com/macros/s/AKfycbyyiEM4NUx-leLse4535upWTtf6q68o4dTFIkO2FS0mml3J3kkIhM7WO27BoAP4aJ-BMg/exec';
 
         window.onload = async () => {
+            // Theme setup for icons
+            const activeTheme = document.documentElement.getAttribute('data-theme');
+            updateThemeIcons(activeTheme);
+
             if (location.search.includes("state=") && (location.search.includes("code=") || location.search.includes("error="))) {
                 await auth0Client.handleRedirectCallback();
                 window.history.replaceState({}, document.title, window.location.pathname);
@@ -313,21 +1256,40 @@
             const isAuthenticated = await auth0Client.isAuthenticated();
             if (isAuthenticated) {
                 const user = await auth0Client.getUser();
-                
+
                 // ปลดล็อก: อนุญาตทุกคนที่เข้าสู่ระบบผ่านแอป Admin ใน Auth0 ได้ ถือเป็น Admin ทันที
                 currentAdminEmail = user.email || user.nickname || user.name || "Admin";
-                
+
                 document.getElementById('admin-display-email').innerText = currentAdminEmail;
                 document.getElementById('admin-panel').style.display = 'block';
+                document.getElementById('theme-toggle-container').style.display = 'none'; // hide top-right toggle since navbar has one
                 loadStudentList();
-                
+
             } else {
-                document.getElementById('login-section').style.display = 'block';
+                document.getElementById('login-section').style.display = 'flex';
+                document.getElementById('theme-toggle-container').style.display = 'block';
             }
         };
 
         const login = async () => { await auth0Client.loginWithRedirect(); };
         const logout = () => { auth0Client.logout({ logoutParams: { returnTo: window.location.href.split('?')[0] } }); };
+
+        // Theme Toggle Logic
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcons(newTheme);
+        }
+
+        function updateThemeIcons(theme) {
+            const loginIcon = document.getElementById('theme-toggle-icon');
+            const dashIcon = document.getElementById('theme-toggle-icon-dash');
+
+            if (loginIcon) loginIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            if (dashIcon) dashIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
 
         // Functions for Modals
         function showLoading() { document.getElementById('loading-overlay').classList.add('active'); }
@@ -336,10 +1298,10 @@
         function showModal(title, message, type = 'success') {
             const modal = document.getElementById('custom-modal');
             const iconContainer = document.getElementById('modal-icon-container');
-            
+
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-message').innerText = message;
-            
+
             if (type === 'success') {
                 iconContainer.className = 'modal-icon success';
                 iconContainer.innerHTML = '<i class="fas fa-check-circle"></i>';
@@ -350,7 +1312,7 @@
                 iconContainer.className = 'modal-icon info';
                 iconContainer.innerHTML = '<i class="fas fa-circle-info"></i>';
             }
-            
+
             modal.classList.add('active');
         }
 
@@ -361,7 +1323,7 @@
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             document.getElementById('tab-' + tabName).classList.add('active');
-            event.target.closest('.tab-btn').classList.add('active');
+            document.getElementById('tab-btn-' + tabName).classList.add('active');
         }
 
         async function loadStudentList() {
@@ -395,7 +1357,7 @@
 
         async function submitAdminAction(actionType) {
             let payload = {};
-            
+
             // Validate Forms
             if (actionType === 'createStudent') {
                 payload = { name: document.getElementById('new-name').value, course: document.getElementById('new-course').value };
@@ -408,7 +1370,7 @@
                     studentId: document.getElementById('pay-id').value,
                     method: document.getElementById('pay-method').value,
                     total: document.getElementById('pay-total').value,
-                    proof: document.getElementById('pay-proof').value 
+                    proof: document.getElementById('pay-proof').value
                 };
                 if (!payload.studentId || !payload.total) return showModal('ข้อมูลไม่ครบถ้วน', 'กรุณาเลือกนักเรียนและกรอกยอดเงิน', 'error');
             }
@@ -425,7 +1387,7 @@
                 });
 
                 const result = await response.json();
-                
+
                 // ซ่อน Loading เมื่อประมวลผลเสร็จ
                 hideLoading();
 
@@ -433,9 +1395,9 @@
                     // เปิด Web Modal แจ้งเตือนความสำเร็จ (สามารถ Copy ข้อความใน Modal ได้)
                     if (actionType === 'createStudent') {
                         showModal('สร้างบัญชีสำเร็จ', result.message, 'success');
-                        document.getElementById('new-name').value = ''; 
-                        document.getElementById('new-course').value = ''; 
-                        loadStudentList(); 
+                        document.getElementById('new-name').value = '';
+                        document.getElementById('new-course').value = '';
+                        loadStudentList();
                     } else {
                         showModal('บันทึกสำเร็จ', result.message, 'success');
                     }
@@ -453,4 +1415,3 @@
         }
     </script>
 </body>
-</html>
