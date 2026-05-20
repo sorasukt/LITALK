@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Kanit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Kanit:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <style>
         *,
         *::before,
@@ -430,7 +432,8 @@
 
         .dashboard-content {
             flex: 1;
-            max-width: 600px; /* Centered narrow container for booking */
+            max-width: 600px;
+            /* Centered narrow container for booking */
             width: 100%;
             margin: 0 auto;
             padding: 32px 24px;
@@ -499,6 +502,7 @@
                 opacity: 0;
                 transform: translateY(4px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -752,8 +756,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Footer */
@@ -844,8 +853,10 @@
                         <p>ระบบจองคิวและลงตารางเข้าเรียน สำหรับเจ้าหน้าที่ผู้ดูแลและอาจารย์ผู้สอน</p>
                     </div>
                     <ul class="brand-features">
-                        <li><i class="fas fa-check-circle"></i> <span>จองคิวเรียนล่วงหน้าและระบุเวลาแบบเรียลไทม์</span></li>
-                        <li><i class="fas fa-check-circle"></i> <span>ผสาน Google Calendar และสร้างห้อง Meet อัตโนมัติ</span></li>
+                        <li><i class="fas fa-check-circle"></i> <span>จองคิวเรียนล่วงหน้าและระบุเวลาแบบเรียลไทม์</span>
+                        </li>
+                        <li><i class="fas fa-check-circle"></i> <span>ผสาน Google Calendar และสร้างห้อง Meet
+                                อัตโนมัติ</span></li>
                         <li><i class="fas fa-check-circle"></i> <span>ระบบแจ้งเตือนตารางการสอนแบบครบวงจร</span></li>
                     </ul>
                 </div>
@@ -866,12 +877,13 @@
                             <span>เฉพาะผู้ที่มีบัญชีเจ้าหน้าที่ผู้ดูแลระบบเท่านั้นที่ได้รับสิทธิ์การเข้าถึงข้อมูลนี้</span>
                         </div>
 
-                        <button class="btn btn-primary" id="admin-login-btn" onclick="login()" style="width:100%; margin-bottom:12px;">
+                        <button class="btn btn-primary" id="admin-login-btn" onclick="login()"
+                            style="width:100%; margin-bottom:12px;">
                             <i class="fas fa-sign-in-alt"></i>
                             เข้าสู่ระบบเจ้าหน้าที่
                         </button>
 
-                        <a href="../index.html" class="btn btn-secondary" id="back-to-student-btn" style="width:100%;">
+                        <a href="../" class="btn btn-secondary" id="back-to-student-btn" style="width:100%;">
                             <i class="fas fa-arrow-left"></i>
                             กลับไปหน้านักเรียน
                         </a>
@@ -914,7 +926,8 @@
                     <div class="staff-avatar"><i class="fas fa-calendar-check"></i></div>
                     <div>
                         <h2>ระบบจองคิวห้องเรียน LITALK</h2>
-                        <p>ลงชื่อเข้าใช้ด้วยบัญชี: <span id="admin-display-email-dash" style="font-weight: 500;">กำลังดึงข้อมูล...</span></p>
+                        <p>ลงชื่อเข้าใช้ด้วยบัญชี: <span id="admin-display-email-dash"
+                                style="font-weight: 500;">กำลังดึงข้อมูล...</span></p>
                     </div>
                 </div>
                 <div class="staff-badge"><i class="fas fa-key"></i> Staff Authorized</div>
@@ -941,7 +954,8 @@
                 <div class="form-body">
                     <div class="form-group">
                         <label><i class="fas fa-id-badge"></i> รหัสนักเรียน (Student ID)</label>
-                        <input type="text" id="student-id" placeholder="กรอกรหัสนักเรียน 6 หลัก เช่น x3y7z2" maxlength="6" autocomplete="off">
+                        <input type="text" id="student-id" placeholder="กรอกรหัสนักเรียน 6 หลัก เช่น x3y7z2"
+                            maxlength="6" autocomplete="off">
                     </div>
 
                     <div class="form-group">
@@ -973,7 +987,8 @@
 
                     <div class="form-group">
                         <label><i class="far fa-sticky-note"></i> บันทึกเพิ่มเติมถึงผู้สอน (ถ้ามี)</label>
-                        <textarea id="booking-notes" rows="3" placeholder="ระบุหัวข้อที่ต้องการเน้นเป็นพิเศษ หรือข้อความเพิ่มเติม..."></textarea>
+                        <textarea id="booking-notes" rows="3"
+                            placeholder="ระบุหัวข้อที่ต้องการเน้นเป็นพิเศษ หรือข้อความเพิ่มเติม..."></textarea>
                     </div>
 
                     <button class="btn btn-primary btn-submit" onclick="submitBooking()">
@@ -995,7 +1010,8 @@
     <div id="loading-overlay" class="modal-overlay">
         <div class="modal-box" style="background: transparent; border: none; box-shadow: none;">
             <div class="loader"></div>
-            <div style="font-size: 13px; font-weight: 500; color: var(--text-primary);">กำลังตรวจสอบตารางสอนและจัดทำห้อง Meet...</div>
+            <div style="font-size: 13px; font-weight: 500; color: var(--text-primary);">กำลังตรวจสอบตารางสอนและจัดทำห้อง
+                Meet...</div>
         </div>
     </div>
 

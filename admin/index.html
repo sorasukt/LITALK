@@ -7,6 +7,7 @@
     <title>LITALK - Admin Control</title>
     <meta name="description" content="LITALK Education Admin Portal - ระบบจัดการข้อมูลนักเรียน">
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1026,6 +1027,110 @@
                 padding: 20px;
             }
         }
+
+        /* Mini tabs for Markdown preview */
+        .tab-btn-mini {
+            padding: 4px 10px;
+            font-size: 11px;
+            font-family: inherit;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-all);
+        }
+        .tab-btn-mini.active {
+            background-color: var(--brand-primary);
+            color: var(--brand-btn-text);
+            border-color: var(--brand-primary);
+        }
+        .tab-btn-mini:hover:not(.active) {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+        .markdown-preview {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            background: var(--bg-tertiary);
+            min-height: 104px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        /* Rendered Markdown Styling */
+        .timeline-feedback {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-primary);
+        }
+        .timeline-feedback p {
+            margin-bottom: 12px;
+        }
+        .timeline-feedback p:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-feedback ul,
+        .timeline-feedback ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        .timeline-feedback li {
+            margin-bottom: 4px;
+        }
+        .timeline-feedback strong {
+            font-weight: 600;
+        }
+        .timeline-feedback em {
+            font-style: italic;
+        }
+        .timeline-feedback code {
+            background-color: var(--bg-primary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+        }
+        .timeline-feedback pre {
+            background-color: var(--bg-primary);
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 12px 0;
+            border: 1px solid var(--border-color);
+        }
+        .timeline-feedback pre code {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+        }
+        .timeline-feedback a {
+            color: var(--brand-primary);
+            text-decoration: underline;
+        }
+        .timeline-feedback blockquote {
+            border-left: 4px solid var(--border-color);
+            padding-left: 12px;
+            color: var(--text-secondary);
+            margin: 12px 0;
+            font-style: italic;
+        }
+        .timeline-feedback h1,
+        .timeline-feedback h2,
+        .timeline-feedback h3,
+        .timeline-feedback h4 {
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .timeline-feedback h1 { font-size: 1.3rem; }
+        .timeline-feedback h2 { font-size: 1.2rem; }
+        .timeline-feedback h3 { font-size: 1.1rem; }
+        .timeline-feedback h4 { font-size: 1.0rem; }
     </style>
 </head>
 
@@ -1203,9 +1308,16 @@
                                         placeholder="จะกรอกให้อัตโนมัติเมื่อเลือกนักเรียนด้านซ้าย">
                                 </div>
                                 <div class="form-group">
-                                    <label><i class="far fa-comment-alt"></i> Feedback การเรียนการสอน</label>
+                                    <div class="textarea-tabs" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                                        <label style="margin-bottom: 0;"><i class="far fa-comment-alt"></i> Feedback การเรียนการสอน (รองรับ Markdown)</label>
+                                        <div style="display: flex; gap: 6px;">
+                                            <button type="button" class="tab-btn-mini active" onclick="switchTextareaTab('write')" id="feedback-write-tab">เขียน</button>
+                                            <button type="button" class="tab-btn-mini" onclick="switchTextareaTab('preview')" id="feedback-preview-tab">ดูตัวอย่าง</button>
+                                        </div>
+                                    </div>
                                     <textarea id="log-feedback" rows="4"
-                                        placeholder="ระบุเนื้อหาหลักที่สอน ผลการพัฒนา และจุดที่ต้องเน้นย้ำ..."></textarea>
+                                        placeholder="ระบุเนื้อหาหลักที่สอน ผลการพัฒนา และจุดที่ต้องเน้นย้ำ... (เช่น ใช้ **ตัวหนา**, * รายการข้อความ, [ลิงก์](url))"></textarea>
+                                    <div id="log-feedback-preview" class="markdown-preview timeline-feedback" style="display: none;"></div>
                                 </div>
                                 <div class="form-group">
                                     <label><i class="fas fa-video"></i> ลิงก์บันทึกวิดีโอย้อนหลัง (Zoom / Drive /
@@ -1583,7 +1695,13 @@
                         showModal('บันทึกสำเร็จ', result.message, 'success');
                     }
 
-                    if (actionType === 'addStudyLog') { document.getElementById('log-feedback').value = ''; document.getElementById('log-video').value = ''; }
+                    if (actionType === 'addStudyLog') {
+                        document.getElementById('log-feedback').value = '';
+                        document.getElementById('log-video').value = '';
+                        const previewEl = document.getElementById('log-feedback-preview');
+                        if (previewEl) previewEl.innerHTML = '';
+                        switchTextareaTab('write');
+                    }
                     if (actionType === 'addPayment') { document.getElementById('pay-total').value = ''; document.getElementById('pay-proof').value = ''; }
                 } else {
                     showModal('เกิดข้อผิดพลาดจากระบบ', result.message, 'error');
@@ -1592,6 +1710,29 @@
                 console.error(error);
                 hideLoading();
                 showModal('ข้อผิดพลาดการเชื่อมต่อ', 'เกิดข้อผิดพลาดในการเชื่อมต่อ กรุณาตรวจสอบ Console Log', 'error');
+            }
+        }
+
+        function switchTextareaTab(tab) {
+            const textarea = document.getElementById('log-feedback');
+            const preview = document.getElementById('log-feedback-preview');
+            const writeTab = document.getElementById('feedback-write-tab');
+            const previewTab = document.getElementById('feedback-preview-tab');
+
+            if (!textarea || !preview || !writeTab || !previewTab) return;
+
+            if (tab === 'write') {
+                textarea.style.display = 'block';
+                preview.style.display = 'none';
+                writeTab.classList.add('active');
+                previewTab.classList.remove('active');
+            } else if (tab === 'preview') {
+                const markdownText = textarea.value.trim();
+                preview.innerHTML = markdownText ? marked.parse(markdownText) : '<p style="color: var(--text-muted); font-style: italic;">ไม่มีเนื้อหาที่จะแสดงตัวอย่าง</p>';
+                textarea.style.display = 'none';
+                preview.style.display = 'block';
+                writeTab.classList.remove('active');
+                previewTab.classList.add('active');
             }
         }
     </script>

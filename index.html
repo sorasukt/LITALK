@@ -7,6 +7,7 @@
     <title>LITALK Education - Student Portal</title>
     <meta name="description" content="LITALK Education Student Portal - ตรวจสอบข้อมูลการเรียนและการชำระเงิน">
     <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -789,8 +790,85 @@
             font-size: 14px;
             line-height: 1.6;
             color: var(--text-primary);
-            white-space: pre-line;
         }
+
+        .timeline-feedback p {
+            margin-bottom: 12px;
+        }
+
+        .timeline-feedback p:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-feedback ul,
+        .timeline-feedback ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .timeline-feedback li {
+            margin-bottom: 4px;
+        }
+
+        .timeline-feedback strong {
+            font-weight: 600;
+        }
+
+        .timeline-feedback em {
+            font-style: italic;
+        }
+
+        .timeline-feedback code {
+            background-color: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-feedback pre {
+            background-color: var(--bg-tertiary);
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 12px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-feedback pre code {
+            background-color: transparent;
+            padding: 0;
+            border: none;
+        }
+
+        .timeline-feedback a {
+            color: var(--brand-primary);
+            text-decoration: underline;
+        }
+
+        .timeline-feedback blockquote {
+            border-left: 4px solid var(--border-color);
+            padding-left: 12px;
+            color: var(--text-secondary);
+            margin: 12px 0;
+            font-style: italic;
+        }
+
+        .timeline-feedback h1,
+        .timeline-feedback h2,
+        .timeline-feedback h3,
+        .timeline-feedback h4 {
+            margin-top: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .timeline-feedback h1 { font-size: 1.3rem; }
+        .timeline-feedback h2 { font-size: 1.2rem; }
+        .timeline-feedback h3 { font-size: 1.1rem; }
+        .timeline-feedback h4 { font-size: 1.0rem; }
 
         .timeline-footer {
             margin-top: 16px;
@@ -1414,7 +1492,7 @@
                                         ${hasVideo ? '<span class="status-badge success-badge"><i class="fas fa-video"></i> วิดีโอพร้อมเรียน</span>' : ''}
                                     </div>
                                     <div class="timeline-feedback">
-                                        <p>${log.feedback || '-'}</p>
+                                        ${log.feedback ? marked.parse(log.feedback) : '-'}
                                     </div>
                                     <div class="timeline-footer">
                                         ${videoButton}
